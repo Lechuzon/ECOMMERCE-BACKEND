@@ -48,6 +48,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
   });
 
   const getallCategory = asyncHandler(async (req, res) => {
+    //const { id } = req.params;
     validateMongoDbId(id);
     try {
       const getallCategory = await Category.find();
