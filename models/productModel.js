@@ -32,11 +32,13 @@ var productSchema = new mongoose.Schema(
         },
         quantity: {
             type: Number,
-            require: true,
+            required: true,
+            
         },
         sold: {
             type: Number,
             default: 0,
+            
         },
         images: {
             type: Array,
@@ -51,9 +53,13 @@ var productSchema = new mongoose.Schema(
                 postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
             },
         ],
+        totalrating: {
+            type: String,
+            default:0,
+        },
     },
     { timestamps: true }
-    );
+);
 
 //Export the model
 module.exports = mongoose.model("Product", productSchema);
