@@ -1,9 +1,9 @@
 const Brand = require("../models/brandModel");
 const asyncHandler = require("express-async-handler");  
-validateMongoDbId = require("../utils/validateMongodbid.js"); 
+const validateMongoDbId = require("../utils/validateMongodbid"); 
 
 const createBrand = asyncHandler(async(req, res) =>{
-    validateMongoDbId(id);
+    //validateMongoDbId(id);
     try{
         const newBrand = await Brand.create(req.body);
         res.json(newBrand);
