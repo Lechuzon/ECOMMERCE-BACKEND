@@ -19,7 +19,7 @@ const multerFilter = (req, file, cb) => {
   } else {
     cb(
       {
-        message: "Unsupported file format",
+        message: "Formato de archivo no soportado",
       },
       false
     );
