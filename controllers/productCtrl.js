@@ -4,7 +4,9 @@ const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const fs = require("fs");
 //const validateMongoDbId = require("../utils/validateMongodbid");
-const cloudinaryUploadImg = require("../utils/cloudinary");
+const { cloudinaryUploadImg,
+        cloudinaryDeleteImg,
+ } = require("../utils/cloudinary");
 
 const createProduct = asyncHandler(async (req, res) => {
   try {
@@ -36,7 +38,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    const deleteProduct = await Product.findOneAndDelete(id);
+    const deleteProduct = await Product.findByIdAndDelete(id);
     res.json(deleteProduct);
   } catch (error) {
     throw new Error(error);
@@ -189,9 +191,6 @@ const rating = asyncHandler(async (req, res) => {
 });
 
 const uploadImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  //validateMongoDbId(id);
-  console.log(req.files)
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
@@ -201,18 +200,25 @@ const uploadImages = asyncHandler(async (req, res) => {
       const newpath = await uploader(path);
       console.log(newpath);
       urls.push(newpath);
-      fs.unlinkSync(path)
+      fs.unlinkSync(path);
     }
-    const findProduct = await Product.findByIdAndUpdate(
-      id,
-      {
-        images: urls.map((file) => {
-          return file;
-        }),
-      },
-      { new: true }
-    );
-    res.json(findProduct);
+    const images = urls.map((file) => {
+      return file;
+    });
+    res.json(images);
+  
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const deleteImages = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted =  cloudinaryDeleteImg(id, "images");
+    res.json({ message:"Eliminado" })
+   
+  
   } catch (error) {
     throw new Error(error);
   }
@@ -227,4 +233,6 @@ module.exports = {
   addToWishlist,
   rating,
   uploadImages,
+  deleteImages,
 };
+//cloudinaryDeleteImg;
