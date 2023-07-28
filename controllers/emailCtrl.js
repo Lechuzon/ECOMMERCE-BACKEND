@@ -20,9 +20,9 @@ const sendEmail = asyncHandler(async(data,req,res) => {
         html: data.htm,
     });
 
-    console.log("Message sent: %s", info.messageId);
+    console.log("Mensaje enviado: %s", info.messageId);
 
-    console.log("Preview URL: %s",nodemailer.getTestMessageUrl(info));
+    console.log("URL de vista previa: %s",nodemailer.getTestMessageUrl(info));
 });
 
 module.exports = sendEmail;
