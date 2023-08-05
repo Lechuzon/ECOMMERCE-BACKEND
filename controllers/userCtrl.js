@@ -13,6 +13,7 @@ const crypto = require("crypto");
 const { JsonWebTokenError } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("./emailCtrl");
+const { log } = require("console");
 
 
 const createUser = asyncHandler(async (req, res) => {
@@ -186,7 +187,10 @@ const getallUser = asyncHandler(async (req, res) => {
   }
 });
 
-
+// const filteredUsers = getallUser.map((user)=>{
+//   return user.password
+//   });
+// console.log(filteredUsers);
 
 const getaUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
