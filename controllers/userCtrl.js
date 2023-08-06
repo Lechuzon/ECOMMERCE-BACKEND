@@ -431,12 +431,12 @@ const createOrder = asyncHandler(async (req, res) => {
         id: uniqid(),
         method: "COD",
         amount: finalAmout,
-        status: "Contrapago",
+        status: "Cash on Delivery",
         created: Date.now(),
         currency: "usd",
       },
       orderby: user._id,
-      orderStatus: "Contrapago",
+      orderStatus: "Cash on Delivery",
     }).save();
     let update = userCart.products.map((item) => {
       return {
@@ -468,6 +468,7 @@ const getOrders = asyncHandler(async (req, res) => {
 });
 
 const getAllOrders = asyncHandler(async (req, res) => {
+  
   try {
     const alluserorders = await Order.find()
       .populate("products.product")
